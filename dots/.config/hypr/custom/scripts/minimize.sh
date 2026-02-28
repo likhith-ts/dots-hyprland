@@ -37,8 +37,13 @@ restore_window() {
 }
 
 toggle_minimize_view() {
-    # Toggle the minimize special workspace visibility
-    hyprctl dispatch togglespecialworkspace minimize
+    # Toggle the minimize view overlay with header
+    if use_animated; then
+        qs -c $QS_CONFIG ipc call minimize toggleView
+    else
+        # Fallback to basic special workspace toggle
+        hyprctl dispatch togglespecialworkspace minimize
+    fi
 }
 
 show_minimized() {

@@ -5,6 +5,7 @@ import Qt5Compat.GraphicalEffects
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Io
 import Quickshell.Widgets
 import Quickshell.Hyprland
 
@@ -19,20 +20,7 @@ DockButton {
     property bool appIsActive: appToplevel.toplevels.find(t => (t.activated == true)) !== undefined
 
     readonly property bool isSeparator: appToplevel.appId === "SEPARATOR"
-    property var desktopEntry: DesktopEntries.heuristicLookup(appToplevel.appId)
-
-    Timer {
-        // Retry looking up the desktop entry if it failed (e.g. database not loaded yet)
-        property int retryCount: 5
-        interval: 1000
-        running: !root.isSeparator && root.desktopEntry === null && retryCount > 0
-        repeat: true
-        onTriggered: {
-            retryCount--;
-            root.desktopEntry = DesktopEntries.heuristicLookup(root.appToplevel.appId);
-        }
-    }
-
+    readonly property var desktopEntry: DesktopEntries.heuristicLookup(appToplevel.appId)
     enabled: !isSeparator
     implicitWidth: isSeparator ? 1 : implicitHeight - topInset - bottomInset
 
@@ -77,12 +65,26 @@ DockButton {
         // Check if window is minimized (in special:minimize workspace)
         const windowData = HyprlandData.clientForToplevel(toplevel);
         if (windowData?.workspace?.name === "special:minimize") {
-            // Get current active workspace and move window there
-            const currentWsId = Hyprland.focusedMonitor?.activeWorkspace?.id ?? 1;
-            const address = `0x${toplevel.HyprlandToplevel?.address}`;
-            Hyprland.dispatch(`movetoworkspace ${currentWsId},address:${address}`);
+            // Trigger restore animation via IPC
+            const address = windowData.address ?? `0x${toplevel.HyprlandToplevel?.address}`;
+            const monitorData = HyprlandData.monitors[0];
+            // Estimate restore position (center of screen)
+            const targetX = monitorData ? monitorData.x + 100 : 100;
+            const targetY = monitorData ? monitorData.y + 50 : 50;
+            const targetW = monitorData ? monitorData.width - 200 : 1720;
+            const targetH = monitorData ? monitorData.height - 100 : 980;
+            
+            // Call restore IPC
+            restoreProcess.command = ["qs", "-c", "ii", "ipc", "call", "minimize", "restore", 
+                address, String(targetX), String(targetY), String(targetW), String(targetH)];
+            restoreProcess.running = true;
+            return;
         }
         toplevel.activate();
+    }
+    
+    Process {
+        id: restoreProcess
     }
 
     middleClickAction: () => {
