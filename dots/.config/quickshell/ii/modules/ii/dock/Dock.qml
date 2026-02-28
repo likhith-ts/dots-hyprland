@@ -128,7 +128,8 @@ Scope { // Scope
                             DockSeparator {}
                             DockButton {
                                 Layout.fillHeight: true
-                                onClicked: GlobalStates.overviewOpen = !GlobalStates.overviewOpen
+                                // onClicked: GlobalStates.overviewOpen = !GlobalStates.overviewOpen
+                                onClicked: Hyprland.dispatch("exec nwg-drawer")
                                 topInset: Appearance.sizes.hyprlandGapsOut + dockRow.padding
                                 bottomInset: Appearance.sizes.hyprlandGapsOut + dockRow.padding
                                 contentItem: MaterialSymbol {

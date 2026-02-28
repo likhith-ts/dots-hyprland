@@ -6,6 +6,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
+import Quickshell.Hyprland
 
 DockButton {
     id: root
@@ -72,7 +73,16 @@ DockButton {
             return;
         }
         lastFocused = (lastFocused + 1) % appToplevel.toplevels.length
-        appToplevel.toplevels[lastFocused].activate()
+        const toplevel = appToplevel.toplevels[lastFocused];
+        // Check if window is minimized (in special:minimize workspace)
+        const windowData = HyprlandData.clientForToplevel(toplevel);
+        if (windowData?.workspace?.name === "special:minimize") {
+            // Get current active workspace and move window there
+            const currentWsId = Hyprland.focusedMonitor?.activeWorkspace?.id ?? 1;
+            const address = `0x${toplevel.HyprlandToplevel?.address}`;
+            Hyprland.dispatch(`movetoworkspace ${currentWsId},address:${address}`);
+        }
+        toplevel.activate();
     }
 
     middleClickAction: () => {
