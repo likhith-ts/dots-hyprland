@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import Quickshell.Io
 import qs
 import qs.services
 import qs.modules.common
@@ -24,6 +25,36 @@ AbstractBackgroundWidget {
     x: forceCenter ? ((root.screenWidth - root.width) / 2) : targetX
     y: forceCenter ? ((root.screenHeight - root.height) / 2) : targetY
     visibleWhenLocked: true
+
+    // Wake-from-sleep fix: skip position animation for 3s after resume
+    property bool justWoke: false
+    Behavior on x {
+        enabled: !root.justWoke
+        animation: Appearance.animation.elementMove.numberAnimation.createObject(this)
+    }
+    Behavior on y {
+        enabled: !root.justWoke
+        animation: Appearance.animation.elementMove.numberAnimation.createObject(this)
+    }
+    Timer {
+        id: wokeTimer
+        interval: 3000
+        onTriggered: root.justWoke = false
+    }
+    Process {
+        id: sleepWatcher
+        running: true
+        command: ["dbus-monitor", "--system",
+            "type='signal',interface='org.freedesktop.login1.Manager',member='PrepareForSleep'"]
+        stdout: SplitParser {
+            onRead: data => {
+                if (data.includes("boolean false")) {
+                    root.justWoke = true;
+                    wokeTimer.restart();
+                }
+            }
+        }
+    }
 
     property var textHorizontalAlignment: {
         if (!Config.options.background.widgets.clock.digital.adaptiveAlignment || root.forceCenter || Config.options.background.widgets.clock.digital.vertical) 
