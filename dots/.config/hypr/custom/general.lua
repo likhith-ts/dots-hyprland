@@ -13,3 +13,12 @@
 -- Kalk scratchpad animation
 -- hl.animation({ leaf = "specialWorkspaceIn",  enabled = true, speed = 2.8, bezier = "emphasizedDecel", style = "slide" })
 -- hl.animation({ leaf = "specialWorkspaceOut", enabled = true, speed = 1.2, bezier = "emphasizedAccel", style = "slide" })
+
+-- Keep touchpad active while typing (upstream default: true)
+hl.config({
+    input = {
+        touchpad = {
+            disable_while_typing = false
+        }
+    }
+})
