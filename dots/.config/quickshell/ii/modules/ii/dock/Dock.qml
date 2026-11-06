@@ -128,7 +128,8 @@ Scope { // Scope
                             DockSeparator {}
                             DockButton {
                                 Layout.fillHeight: true
-                                onClicked: GlobalStates.overviewOpen = !GlobalStates.overviewOpen
+                                // onClicked: GlobalStates.overviewOpen = !GlobalStates.overviewOpen
+                                onClicked: Quickshell.execDetached(["nwg-drawer"]) // [likhith-customs]
                                 topInset: Appearance.sizes.hyprlandGapsOut + dockRow.padding
                                 bottomInset: Appearance.sizes.hyprlandGapsOut + dockRow.padding
                                 contentItem: MaterialSymbol {

@@ -5,7 +5,9 @@ import Qt5Compat.GraphicalEffects
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Io
 import Quickshell.Widgets
+import Quickshell.Hyprland
 
 DockButton {
     id: root
@@ -67,7 +69,26 @@ DockButton {
             return;
         }
         lastFocused = (lastFocused + 1) % appToplevel.toplevels.length
-        appToplevel.toplevels[lastFocused].activate()
+        const toplevel = appToplevel.toplevels[lastFocused];
+        // [likhith-customs] Restore with genie animation if the window is minimized
+        const windowData = HyprlandData.clientForToplevel(toplevel);
+        if (windowData?.workspace?.name === "special:minimize") {
+            const address = windowData.address ?? `0x${toplevel.HyprlandToplevel?.address}`;
+            const monitorData = HyprlandData.monitors[0];
+            const targetX = monitorData ? monitorData.x + 100 : 100;
+            const targetY = monitorData ? monitorData.y + 50 : 50;
+            const targetW = monitorData ? monitorData.width - 200 : 1720;
+            const targetH = monitorData ? monitorData.height - 100 : 980;
+            restoreProcess.command = ["qs", "-c", "ii", "ipc", "call", "minimize", "restore",
+                address, String(targetX), String(targetY), String(targetW), String(targetH)];
+            restoreProcess.running = true;
+            return;
+        }
+        toplevel.activate();
+    }
+
+    Process {
+        id: restoreProcess
     }
 
     middleClickAction: () => {
