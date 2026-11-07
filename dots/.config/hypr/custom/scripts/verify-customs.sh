@@ -14,10 +14,12 @@ echo "== Settings"
 chk "touchpad disable_while_typing = false" \
     "hyprctl getoption input:touchpad:disable_while_typing -j | jq -e '.int == 0'"
 
-echo "== Keybinds registered"
-for k in "minimize.sh minimize" "minimize.sh toggle" "minimize.sh restore-all" "kalk-toggle.sh" "nwg-drawer" "rofi -show drun"; do
-    chk "bind: $k" "hyprctl binds -j | jq -e --arg k '$k' 'any(.[]; .arg | contains(\$k))'"
+echo "== Keybinds registered (Lua binds show a numeric arg, so match on description)"
+for k in "Minimize window" "Toggle minimized view" "Restore all minimized" "Toggle hyprbars" "Apps grid" "Jarvis search" "Toggle left sidebar" "Toggle smart split"; do
+    chk "bind: $k" "hyprctl binds -j | jq -e --arg k '$k' 'any(.[]; (.description // \"\") | contains(\$k))'"
 done
+chk "Super interrupt binds present" "hyprctl binds -j | jq -e '[.[] | select(((.key // \"\")|tostring|startswith(\"code:\")) or ((.keycode // 0) > 0))] | length > 100'"
+chk "no stale upstream Super+B/Super+S binds" "[ \$(hyprctl binds -j | jq '[.[] | select(.modmask==64 and (.key==\"B\" or .key==\"b\" or .key==\"S\" or .key==\"s\"))] | length') -le 2 ]"
 
 echo "== Environment"
 chk "XDG_DATA_DIRS has flatpak"  "tr '\0' '\n' < /proc/\$(pgrep -x Hyprland | head -1)/environ | grep '^XDG_DATA_DIRS=' | grep -q flatpak"

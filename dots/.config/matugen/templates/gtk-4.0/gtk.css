@@ -539,3 +539,561 @@ tooltip {
 .image-button.flat arrow {
   background: transparent;
 }
+
+
+
+/* ============================================================
+ * MacTahoe-style UI tweaks (safe, non-color overrides)
+ * Traffic light buttons, rounded corners, shadows, etc.
+ * ============================================================ */
+
+/* [2] Rounded window corners (24px) */
+window.csd {
+  transition: none;
+  border-radius: 24px;
+  outline-offset: -1px;
+  margin: 0;
+}
+
+window.csd.tiled,
+window.csd.tiled-top,
+window.csd.tiled-left,
+window.csd.tiled-right,
+window.csd.tiled-bottom {
+  border-radius: 0;
+  outline: none;
+}
+
+window.csd.maximized,
+window.csd.fullscreen {
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+  transition: none;
+}
+
+window.csd.ssd-frame {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  outline: none;
+}
+
+window.csd.ssd-frame headerbar {
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+}
+
+window.csd.ssd-frame.maximized headerbar,
+window.csd.ssd-frame.fullscreen headerbar {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  box-shadow: none;
+}
+
+/* [4] Headerbar inset highlight */
+window.csd.ssd-frame headerbar,
+headerbar:not(.flat) {
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.1);
+}
+
+headerbar:backdrop {
+  opacity: 1;
+}
+
+headerbar.flat,
+headerbar.flat:backdrop {
+  border: none;
+  background: none;
+}
+
+.tiled headerbar,
+.tiled headerbar:backdrop,
+.maximized headerbar,
+.maximized headerbar:backdrop {
+  border-radius: 0;
+}
+
+/* [5] Pill-shaped headerbar entries & buttons */
+headerbar entry {
+  border-spacing: 6px;
+  min-height: 30px;
+  min-width: 30px;
+  padding: 3px 12px;
+  border-radius: 9999px;
+}
+
+headerbar entry button {
+  min-height: 24px;
+  min-width: 24px;
+  border-radius: 9999px;
+}
+
+headerbar entry button,
+headerbar entry button.image-button {
+  padding: 3px;
+}
+
+headerbar button {
+  border-radius: 9999px;
+}
+
+headerbar button,
+headerbar button.image-button {
+  min-height: 24px;
+  min-width: 24px;
+  padding: 6px;
+}
+
+headerbar button.text-button {
+  min-height: 24px;
+  min-width: 24px;
+  padding: 6px 15px;
+}
+
+headerbar button.text-button.image-button,
+headerbar button.image-text-button {
+  min-height: 24px;
+  min-width: 24px;
+  padding: 6px 12px;
+}
+
+headerbar splitbutton {
+  border-radius: 9999px;
+  padding: 3px;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15),
+  inset 1px 2px 1px -1px rgba(255, 255, 255, 0.08),
+  inset -1px -1px 1px 0 rgba(255, 255, 255, 0.08);
+  border: none;
+}
+
+headerbar splitbutton:backdrop {
+  background-image: none;
+  border: none;
+  box-shadow: none;
+}
+
+headerbar splitbutton > separator {
+  background-color: rgba(255, 255, 255, 0.12);
+  min-width: 1px;
+  margin: 6px 2px;
+}
+
+headerbar splitbutton > button,
+headerbar splitbutton > button.image-button,
+headerbar splitbutton > menubutton > button {
+  min-height: 24px;
+  min-width: 24px;
+  padding: 3px;
+}
+
+/* [6] Popover/menu rounded corners + shadow */
+popover > contents {
+  padding: 6px;
+  border-radius: 12px;
+}
+
+popover > arrow,
+popover > contents {
+  background-clip: padding-box;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.15);
+}
+
+popover.emoji-picker {
+  padding: 0;
+  border-radius: 12px;
+}
+
+/* [7] Tooltip styling */
+tooltip {
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+tooltip.background {
+  background-clip: padding-box;
+  border-radius: 12px;
+}
+
+tooltip.background label {
+  padding: 6px;
+}
+
+tooltip > box {
+  border-spacing: 6px;
+}
+
+/* [8] Dialog rounded corners */
+window.dialog.message .dialog-action-area > button {
+  min-height: 20px;
+  padding: 4px 8px;
+  box-shadow: none;
+  border-radius: 6px;
+  margin: 3px;
+  border: none;
+}
+
+/* [10] Tab styling */
+notebook > header > tabs > tab {
+  transition: all 150ms ease-out;
+  border-radius: 14px;
+  padding: 2px 10px;
+  margin: 0;
+  box-shadow: none;
+  border: none;
+}
+
+notebook > header > tabs > tab:checked,
+notebook > header > tabs > tab:selected {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08),
+  inset 1px 2px 1px -1px rgba(255, 255, 255, 0.08),
+  inset -1px -1px 1px -1px rgba(255, 255, 255, 0.1);
+}
+
+notebook.frame {
+  border-radius: 19px;
+}
+
+notebook > stack:not(:only-child) {
+  border-radius: 19px;
+}
+
+notebook > header {
+  border: none;
+  margin: 3px;
+  padding: 2px;
+  border-radius: 16px;
+}
+
+notebook > header.top > tabs > tab,
+notebook > header.bottom > tabs > tab,
+notebook > header.left > tabs > tab,
+notebook > header.right > tabs > tab {
+  outline-offset: -4px;
+  min-width: 24px;
+  min-height: 24px;
+}
+
+notebook > header.top > tabs > tab + tab,
+notebook > header.bottom > tabs > tab + tab {
+  margin-left: 3px;
+}
+
+notebook > header.left > tabs > tab + tab,
+notebook > header.right > tabs > tab + tab {
+  margin-top: 3px;
+}
+
+/* [1] Traffic light window buttons — GTK4 */
+
+/* Spacing & layout */
+headerbar windowcontrols {
+  border-spacing: 6px;
+  padding: 0 8px;
+}
+
+headerbar windowcontrols:not(.empty).start:dir(ltr),
+headerbar windowcontrols:not(.empty).end:dir(rtl) {
+  margin-right: 8px;
+}
+
+headerbar windowcontrols:not(.empty).start:dir(rtl),
+headerbar windowcontrols:not(.empty).end:dir(ltr) {
+  margin-left: 8px;
+}
+
+headerbar.titlebar headerbar windowcontrols {
+  border-spacing: 6px;
+}
+
+/* Hide default icon, set button size */
+headerbar windowcontrols button > image {
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  background-image: none;
+  color: transparent;
+}
+
+headerbar windowcontrols button.close,
+headerbar windowcontrols button.maximize,
+headerbar windowcontrols button.minimize {
+  min-width: 16px;
+  min-height: 16px;
+  padding: 0;
+  margin: 0 1px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+}
+
+/* Clear all default styling from buttons */
+headerbar windowcontrols button.close,
+headerbar windowcontrols button.close:hover,
+headerbar windowcontrols button.close:focus,
+headerbar windowcontrols button.close:active,
+headerbar windowcontrols button.close:backdrop,
+headerbar windowcontrols button.maximize,
+headerbar windowcontrols button.maximize:hover,
+headerbar windowcontrols button.maximize:focus,
+headerbar windowcontrols button.maximize:active,
+headerbar windowcontrols button.maximize:backdrop,
+headerbar windowcontrols button.minimize,
+headerbar windowcontrols button.minimize:hover,
+headerbar windowcontrols button.minimize:focus,
+headerbar windowcontrols button.minimize:active,
+headerbar windowcontrols button.minimize:backdrop {
+  border-color: transparent;
+  background-color: transparent;
+  background-image: none;
+  box-shadow: none;
+  color: transparent;
+}
+
+headerbar windowcontrols button.close:backdrop,
+headerbar windowcontrols button.maximize:backdrop,
+headerbar windowcontrols button.minimize:backdrop {
+  opacity: 1;
+}
+
+/* Default decoration (CSD minimal) */
+headerbar.default-decoration windowcontrols button,
+headerbar.default-decoration windowcontrols menubutton {
+  border: none;
+  min-width: 16px;
+  min-height: 16px;
+}
+
+/* ---- Light mode traffic light PNGs ---- */
+@media (prefers-color-scheme: light) {
+  headerbar windowcontrols button.close {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-close.png"),
+                                  url("windows-assets/titlebutton-close@2.png"));
+  }
+  headerbar windowcontrols button.close:backdrop {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-close-backdrop.png"),
+                                  url("windows-assets/titlebutton-close-backdrop@2.png"));
+  }
+  headerbar windowcontrols button.close:backdrop:hover {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-close-backdrop-hover.png"),
+                                  url("windows-assets/titlebutton-close-backdrop-hover@2.png"));
+  }
+  headerbar windowcontrols button.close:hover {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-close-hover.png"),
+                                  url("windows-assets/titlebutton-close-hover@2.png"));
+  }
+  headerbar windowcontrols button.close:active {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-close-active.png"),
+                                  url("windows-assets/titlebutton-close-active@2.png"));
+  }
+
+  headerbar windowcontrols button.maximize {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-maximize.png"),
+                                  url("windows-assets/titlebutton-maximize@2.png"));
+  }
+  headerbar windowcontrols button.maximize:backdrop {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-maximize-backdrop.png"),
+                                  url("windows-assets/titlebutton-maximize-backdrop@2.png"));
+  }
+  headerbar windowcontrols button.maximize:backdrop:hover {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-maximize-backdrop-hover.png"),
+                                  url("windows-assets/titlebutton-maximize-backdrop-hover@2.png"));
+  }
+  headerbar windowcontrols button.maximize:hover {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-maximize-hover.png"),
+                                  url("windows-assets/titlebutton-maximize-hover@2.png"));
+  }
+  headerbar windowcontrols button.maximize:active {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-maximize-active.png"),
+                                  url("windows-assets/titlebutton-maximize-active@2.png"));
+  }
+
+  headerbar windowcontrols button.minimize {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-minimize.png"),
+                                  url("windows-assets/titlebutton-minimize@2.png"));
+  }
+  headerbar windowcontrols button.minimize:backdrop {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-minimize-backdrop.png"),
+                                  url("windows-assets/titlebutton-minimize-backdrop@2.png"));
+  }
+  headerbar windowcontrols button.minimize:backdrop:hover {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-minimize-backdrop-hover.png"),
+                                  url("windows-assets/titlebutton-minimize-backdrop-hover@2.png"));
+  }
+  headerbar windowcontrols button.minimize:hover {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-minimize-hover.png"),
+                                  url("windows-assets/titlebutton-minimize-hover@2.png"));
+  }
+  headerbar windowcontrols button.minimize:active {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-minimize-active.png"),
+                                  url("windows-assets/titlebutton-minimize-active@2.png"));
+  }
+
+  /* Restore button when maximized/fullscreen (light) */
+  .fullscreen headerbar windowcontrols button.maximize,
+  .maximized headerbar windowcontrols button.maximize {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-restore.png"),
+                                  url("windows-assets/titlebutton-restore@2.png"));
+  }
+  .fullscreen headerbar windowcontrols button.maximize:backdrop,
+  .maximized headerbar windowcontrols button.maximize:backdrop {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-restore-backdrop.png"),
+                                  url("windows-assets/titlebutton-restore-backdrop@2.png"));
+  }
+  .fullscreen headerbar windowcontrols button.maximize:backdrop:hover,
+  .maximized headerbar windowcontrols button.maximize:backdrop:hover {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-restore-backdrop-hover.png"),
+                                  url("windows-assets/titlebutton-restore-backdrop-hover@2.png"));
+  }
+  .fullscreen headerbar windowcontrols button.maximize:hover,
+  .maximized headerbar windowcontrols button.maximize:hover {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-restore-hover.png"),
+                                  url("windows-assets/titlebutton-restore-hover@2.png"));
+  }
+  .fullscreen headerbar windowcontrols button.maximize:active,
+  .maximized headerbar windowcontrols button.maximize:active {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-restore-active.png"),
+                                  url("windows-assets/titlebutton-restore-active@2.png"));
+  }
+
+  /* Light CSD shadow & outline */
+  window.csd {
+    outline: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 3px 6px rgb(0 0 0 / 15%),
+    0 7px 24px rgb(0 0 0 / 12%),
+    0 12px 32px rgb(0 0 0 / 8%),
+    0 0 0 2px rgba(0, 0, 0, 0.03),
+    0 0 0 1px rgba(0, 0, 0, 0.12);
+  }
+  window.csd:backdrop {
+    transition: box-shadow 150ms cubic-bezier(0, 0, 0.2, 1);
+    box-shadow: 0 3px 6px rgb(0 0 0 / 10%),
+    0 7px 24px rgb(0 0 0 / 6%),
+    0 12px 32px transparent,
+    0 0 0 2px rgba(0, 0, 0, 0.03),
+    0 0 0 1px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Light tooltip border tweak */
+  tooltip.background {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* ---- Dark mode traffic light PNGs ---- */
+@media (prefers-color-scheme: dark) {
+  headerbar windowcontrols button.close {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-close-dark.png"),
+                                  url("windows-assets/titlebutton-close-dark@2.png"));
+  }
+  headerbar windowcontrols button.close:backdrop {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-close-backdrop-dark.png"),
+                                  url("windows-assets/titlebutton-close-backdrop-dark@2.png"));
+  }
+  headerbar windowcontrols button.close:backdrop:hover {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-close-backdrop-hover-dark.png"),
+                                  url("windows-assets/titlebutton-close-backdrop-hover-dark@2.png"));
+  }
+  headerbar windowcontrols button.close:hover {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-close-hover-dark.png"),
+                                  url("windows-assets/titlebutton-close-hover-dark@2.png"));
+  }
+  headerbar windowcontrols button.close:active {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-close-active-dark.png"),
+                                  url("windows-assets/titlebutton-close-active-dark@2.png"));
+  }
+
+  headerbar windowcontrols button.maximize {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-maximize-dark.png"),
+                                  url("windows-assets/titlebutton-maximize-dark@2.png"));
+  }
+  headerbar windowcontrols button.maximize:backdrop {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-maximize-backdrop-dark.png"),
+                                  url("windows-assets/titlebutton-maximize-backdrop-dark@2.png"));
+  }
+  headerbar windowcontrols button.maximize:backdrop:hover {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-maximize-backdrop-hover-dark.png"),
+                                  url("windows-assets/titlebutton-maximize-backdrop-hover-dark@2.png"));
+  }
+  headerbar windowcontrols button.maximize:hover {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-maximize-hover-dark.png"),
+                                  url("windows-assets/titlebutton-maximize-hover-dark@2.png"));
+  }
+  headerbar windowcontrols button.maximize:active {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-maximize-active-dark.png"),
+                                  url("windows-assets/titlebutton-maximize-active-dark@2.png"));
+  }
+
+  headerbar windowcontrols button.minimize {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-minimize-dark.png"),
+                                  url("windows-assets/titlebutton-minimize-dark@2.png"));
+  }
+  headerbar windowcontrols button.minimize:backdrop {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-minimize-backdrop-dark.png"),
+                                  url("windows-assets/titlebutton-minimize-backdrop-dark@2.png"));
+  }
+  headerbar windowcontrols button.minimize:backdrop:hover {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-minimize-backdrop-hover-dark.png"),
+                                  url("windows-assets/titlebutton-minimize-backdrop-hover-dark@2.png"));
+  }
+  headerbar windowcontrols button.minimize:hover {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-minimize-hover-dark.png"),
+                                  url("windows-assets/titlebutton-minimize-hover-dark@2.png"));
+  }
+  headerbar windowcontrols button.minimize:active {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-minimize-active-dark.png"),
+                                  url("windows-assets/titlebutton-minimize-active-dark@2.png"));
+  }
+
+  /* Restore button when maximized/fullscreen (dark) */
+  .fullscreen headerbar windowcontrols button.maximize,
+  .maximized headerbar windowcontrols button.maximize {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-restore-dark.png"),
+                                  url("windows-assets/titlebutton-restore-dark@2.png"));
+  }
+  .fullscreen headerbar windowcontrols button.maximize:backdrop,
+  .maximized headerbar windowcontrols button.maximize:backdrop {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-restore-backdrop-dark.png"),
+                                  url("windows-assets/titlebutton-restore-backdrop-dark@2.png"));
+  }
+  .fullscreen headerbar windowcontrols button.maximize:backdrop:hover,
+  .maximized headerbar windowcontrols button.maximize:backdrop:hover {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-restore-backdrop-hover-dark.png"),
+                                  url("windows-assets/titlebutton-restore-backdrop-hover-dark@2.png"));
+  }
+  .fullscreen headerbar windowcontrols button.maximize:hover,
+  .maximized headerbar windowcontrols button.maximize:hover {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-restore-hover-dark.png"),
+                                  url("windows-assets/titlebutton-restore-hover-dark@2.png"));
+  }
+  .fullscreen headerbar windowcontrols button.maximize:active,
+  .maximized headerbar windowcontrols button.maximize:active {
+    background-image: -gtk-scaled(url("windows-assets/titlebutton-restore-active-dark.png"),
+                                  url("windows-assets/titlebutton-restore-active-dark@2.png"));
+  }
+
+  /* Dark CSD shadow & outline */
+  window.csd {
+    outline: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 3px 6px rgb(0 0 0 / 15%),
+    0 7px 24px rgb(0 0 0 / 12%),
+    0 12px 32px rgb(0 0 0 / 8%),
+    0 0 0 2px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.75);
+  }
+  window.csd:backdrop {
+    transition: box-shadow 150ms cubic-bezier(0, 0, 0.2, 1);
+    box-shadow: 0 3px 6px rgb(0 0 0 / 10%),
+    0 7px 24px rgb(0 0 0 / 6%),
+    0 12px 32px transparent,
+    0 0 0 2px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.75);
+  }
+
+  /* Dark tooltip border tweak */
+  tooltip.background {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+}
