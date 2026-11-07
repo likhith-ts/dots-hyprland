@@ -12,7 +12,7 @@ errs=$(hyprctl configerrors 2>/dev/null | grep -v '^$')
 
 echo "== Settings"
 chk "touchpad disable_while_typing = false" \
-    "hyprctl getoption input:touchpad:disable_while_typing -j | jq -e '.int == 0'"
+    "hyprctl getoption input:touchpad:disable_while_typing -j | jq -e '.bool == false or .int == 0'"
 
 echo "== Keybinds registered (Lua binds show a numeric arg, so match on description)"
 for k in "Minimize window" "Toggle minimized view" "Restore all minimized" "Toggle hyprbars" "Apps grid" "Jarvis search" "Toggle left sidebar" "Toggle smart split"; do
